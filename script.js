@@ -154,3 +154,4 @@ function endGame() {
     document.getElementById("winner").textContent = "Empate! As duas equipes se saíram muito bem!";
   }
 }
+

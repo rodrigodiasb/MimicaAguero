@@ -75,19 +75,20 @@ document.getElementById("startButton").addEventListener("click", () => {
 
 // Reiniciar Palavras
 function resetWords() {
-  currentWords = categories.flatMap(c => c.words);
+  currentWords = categories.flatMap(c => c.words.map(word => ({ category: c.category, word })));
 }
 
 // Sorteia Palavra
 function getRandomWord() {
   if (currentWords.length === 0) resetWords();
   const index = Math.floor(Math.random() * currentWords.length);
-  return currentWords.splice(index, 1)[0];
+  return currentWords.splice(index, 1)[0]; // Retorna um objeto { category, word }
 }
 
 // Inicia Rodada
 function startRound() {
-  wordDisplay.textContent = `Sua palavra é da categoria "${categories[0].category}": ${getRandomWord()}`;
+  const { category, word } = getRandomWord();
+  wordDisplay.textContent = `Sua palavra é da categoria "${category}": ${word}`;
   correctButton.disabled = false;
   nextTeamButton.classList.add("hidden");
   startTimer();
@@ -111,7 +112,8 @@ function startTimer() {
 correctButton.addEventListener("click", () => {
   scores[currentTeam - 1]++;
   updateScores();
-  wordDisplay.textContent = `Sua palavra é da categoria "${categories[0].category}": ${getRandomWord()}`;
+  const { category, word } = getRandomWord();
+  wordDisplay.textContent = `Sua palavra é da categoria "${category}": ${word}`;
 });
 
 // Termina Rodada
@@ -143,5 +145,12 @@ function endGame() {
   gameScreen.classList.add("hidden");
   resultScreen.classList.remove("hidden");
   document.getElementById("finalScore").textContent = `Equipe 1: ${scores[0]} | Equipe 2: ${scores[1]}`;
-  document.getElementById("winner").textContent = scores[0] > scores[1] ? "Equipe 1 Venceu!" : "Equipe 2 Venceu!";
+
+  if (scores[0] > scores[1]) {
+    document.getElementById("winner").textContent = "Equipe 1 Venceu!";
+  } else if (scores[1] > scores[0]) {
+    document.getElementById("winner").textContent = "Equipe 2 Venceu!";
+  } else {
+    document.getElementById("winner").textContent = "Empate! As duas equipes se saíram muito bem!";
+  }
 }

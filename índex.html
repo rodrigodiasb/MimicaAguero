@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Jogo de Mímica</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <!-- Tela Inicial -->
+  <div id="configScreen" class="screen">
+    <h1>Jogo de Mímica</h1>
+    <label for="roundTime">Tempo por Rodada (segundos):</label>
+    <input type="number" id="roundTime" min="10" value="60">
+    <label for="rounds">Quantidade de Rodadas por Equipe:</label>
+    <input type="number" id="rounds" min="1" value="15">
+    <button id="startButton">Iniciar Jogo</button>
+  </div>
+
+  <!-- Tela do Jogo -->
+  <div id="gameScreen" class="screen hidden">
+    <div class="scoreboard">
+      <div class="team team1">
+        <h2>Equipe 1</h2>
+        <p id="score1">0</p>
+      </div>
+      <div class="team team2">
+        <h2>Equipe 2</h2>
+        <p id="score2">0</p>
+      </div>
+    </div>
+    <h2 id="currentTeam">Equipe 1 está jogando!</h2>
+    <div id="wordDisplay"></div>
+    <p id="timer">Tempo: 60s</p>
+    <button id="correctButton">Acertou!</button>
+    <button id="nextTeamButton" class="hidden">Próxima Equipe</button>
+  </div>
+
+  <!-- Tela Final -->
+  <div id="resultScreen" class="screen hidden">
+    <h1>Placar Final</h1>
+    <p id="finalScore"></p>
+    <h2 id="winner"></h2>
+    <button onclick="location.reload()">Jogar Novamente</button>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
